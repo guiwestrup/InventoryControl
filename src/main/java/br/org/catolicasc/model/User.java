@@ -8,6 +8,7 @@ public class User {
     private String name;
     //TODO revisar esse Password
     private Password password;
+    //TODO teste
     private String address;
     private String city;
     private State state;

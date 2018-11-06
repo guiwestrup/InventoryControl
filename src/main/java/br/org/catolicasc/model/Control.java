@@ -1,5 +1,7 @@
 package br.org.catolicasc.model;
 
+import java.util.Date;
+
 public class Control {
 
     private int id;
