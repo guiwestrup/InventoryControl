@@ -1,5 +1,7 @@
 package br.org.catolicasc.model;
 
+import sun.util.calendar.BaseCalendar;
+
 public class Control {
 
     private int id;
@@ -12,13 +14,13 @@ public class Control {
     private float value;
     private InsertWithdraw insertwithdraw;
     //TODO definir qual date
-    private Date date;
+    private BaseCalendar.Date date;
     private Status status;
 
     public Control() {
     }
 
-    public Control(int id, String description, InvoiceEntries invoiceEntries, Product product, User user, Type type, int quatity, float value, InsertWithdraw insertwithdraw, Date date, Status status) {
+    public Control(int id, String description, InvoiceEntries invoiceEntries, Product product, User user, Type type, int quatity, float value, InsertWithdraw insertwithdraw, BaseCalendar.Date date, Status status) {
         this.id = id;
         this.description = description;
         this.invoiceEntries = invoiceEntries;
@@ -104,11 +106,11 @@ public class Control {
         this.insertwithdraw = insertwithdraw;
     }
 
-    public Date getDate() {
+    public BaseCalendar.Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(BaseCalendar.Date date) {
         this.date = date;
     }
 
