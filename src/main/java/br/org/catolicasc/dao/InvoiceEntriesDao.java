@@ -34,7 +34,7 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
                         "ENUM(" + Utils.getStrings(Status.class) + ")",
                 },
                 "FOREIGN KEY (id_vendor) REFERENCES vendor(id)," +
-                        "FOREIGN KEY (id_user) REFERENCES user(id_user)"
+                        "FOREIGN KEY (id_user) REFERENCES user(id)"
         );
     }
 

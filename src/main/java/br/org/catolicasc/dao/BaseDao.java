@@ -52,10 +52,6 @@ public abstract class BaseDao<T extends BaseDaoClass>{
             stringInsertValues = stringInsertValues.substring(0,stringInsertValues.length() - 1);
             stringUpdate = stringUpdate.substring(0,stringUpdate.length() - 1);
 
-            System.out.println(stringInsert);
-            System.out.println(stringInsertValues);
-            System.out.println(stringUpdate);
-
             insert = conn.prepareStatement("INSERT INTO " + TABLE + " (" + stringInsert + ") VALUES (" + stringInsertValues + ")", Statement.RETURN_GENERATED_KEYS);
             update = conn.prepareStatement("UPDATE " + TABLE + " SET " + stringUpdate + " WHERE id=?");
 
