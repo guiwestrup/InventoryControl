@@ -10,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CompanyDao extends BaseDao<Company> {
-    protected CompanyDao() {
+
+    private CompanyDao() {
         super(
                 true,
                 "company",
@@ -34,8 +35,11 @@ public class CompanyDao extends BaseDao<Company> {
                         "VARCHAR(255)",
                         "ENUM(" + Utils.getStrings(Status.class) + ") DEFAULT \"" + Status.ACTIVE + "\""
                 },
-                "");
+                ""
+        );
     }
+
+    public static CompanyDao getNewInstance(){ return new CompanyDao(); }
 
     @Override
     public Company getObjFromRs(ResultSet rs) throws SQLException {

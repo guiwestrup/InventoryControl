@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class ProductDao extends BaseDao<Product> {
 
-    protected ProductDao() {
+    private ProductDao() {
         super(
                 true,
                 "product",
@@ -34,7 +34,12 @@ public class ProductDao extends BaseDao<Product> {
                         "INT",
                         "ENUM(" + Utils.getStrings(UnitType.class) + ")",
                 },
-                "");
+                ""
+        );
+    }
+
+    public static ProductDao getNewInstance(){
+        return new ProductDao();
     }
 
     @Override

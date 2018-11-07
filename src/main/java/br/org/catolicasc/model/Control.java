@@ -6,15 +6,15 @@ public class Control implements BaseDaoClass{
 
     private int id;
     private String description;
+    private int quatity;
+    private float value;
+    //TODO definir qual date
+    private Date date;
     private InvoiceEntries invoiceEntries;
     private Product product;
     private User user;
     private Type type;
-    private int quatity;
-    private float value;
     private InsertWithdraw insertwithdraw;
-    //TODO definir qual date
-    private Date date;
     private Status status;
 
     public Control() {

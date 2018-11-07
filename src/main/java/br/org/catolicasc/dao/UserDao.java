@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class UserDao extends BaseDao<User> {
 
-    protected UserDao() {
+    private UserDao() {
         super(
                 true,
                 "user",
@@ -32,7 +32,12 @@ public class UserDao extends BaseDao<User> {
                         "ENUM(" + Utils.getStrings(Role.class) + ")",
                         "ENUM(" + Utils.getStrings(Status.class) + ")",
                 },
-                "");
+                ""
+        );
+    }
+
+    public static UserDao getNewInstance(){
+        return new UserDao();
     }
 
     @Override
