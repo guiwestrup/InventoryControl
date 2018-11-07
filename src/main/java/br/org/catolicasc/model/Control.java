@@ -1,12 +1,8 @@
 package br.org.catolicasc.model;
 
-<<<<<<< HEAD
 import java.util.Date;
-=======
-import sun.util.calendar.BaseCalendar;
->>>>>>> 35e1e713ce9cfcdb41629ccfc5fdcbb32f4916d5
 
-public class Control {
+public class Control implements BaseDaoClass{
 
     private int id;
     private String description;
@@ -18,30 +14,19 @@ public class Control {
     private float value;
     private InsertWithdraw insertwithdraw;
     //TODO definir qual date
-    private BaseCalendar.Date date;
+    private Date date;
     private Status status;
 
     public Control() {
+        status = Status.ACTIVE;
     }
 
-    public Control(int id, String description, InvoiceEntries invoiceEntries, Product product, User user, Type type, int quatity, float value, InsertWithdraw insertwithdraw, BaseCalendar.Date date, Status status) {
-        this.id = id;
-        this.description = description;
-        this.invoiceEntries = invoiceEntries;
-        this.product = product;
-        this.user = user;
-        this.type = type;
-        this.quatity = quatity;
-        this.value = value;
-        this.insertwithdraw = insertwithdraw;
-        this.date = date;
-        this.status = status;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -110,11 +95,11 @@ public class Control {
         this.insertwithdraw = insertwithdraw;
     }
 
-    public BaseCalendar.Date getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(BaseCalendar.Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

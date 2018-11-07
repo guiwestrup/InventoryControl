@@ -1,6 +1,6 @@
 package br.org.catolicasc.model;
 
-public class InvoiceProducts {
+public class InvoiceProducts implements BaseDaoClass{
 
     //TODO revisar se falta campo
     private int id;
@@ -12,22 +12,15 @@ public class InvoiceProducts {
     private Status status;
 
     public InvoiceProducts() {
+        status = Status.ACTIVE;
     }
 
-    public InvoiceProducts(int id, InvoiceEntries invoiceEntries, Product product, int quantity, float costValue, float total, Status status) {
-        this.id = id;
-        this.invoiceEntries = invoiceEntries;
-        this.product = product;
-        this.quantity = quantity;
-        this.costValue = costValue;
-        this.total = total;
-        this.status = status;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }

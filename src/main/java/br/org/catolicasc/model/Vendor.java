@@ -1,6 +1,6 @@
 package br.org.catolicasc.model;
 
-public class Vendor {
+public class Vendor implements BaseDaoClass{
 
     private int id;
     //company = razão social
@@ -18,27 +18,15 @@ public class Vendor {
     private Status status;
 
     public Vendor(){
-
+        status = Status.ACTIVE;
     }
 
-    public Vendor(String company, String trade, String CNPJ, String address, String phone, String email, String zipcode, String city, State state, Category category, Status status){
-        this.company = company;
-        this.trade = trade;
-        this.CNPJ = CNPJ;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.zipcode = zipcode;
-        this.city = city;
-        this.state = state;
-        this.category = category;
-        this.status = status;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -74,7 +62,6 @@ public class Vendor {
     public void setAddress(String address) {
         this.address = address;
     }
-
 
     public String getPhone() {
         return phone;

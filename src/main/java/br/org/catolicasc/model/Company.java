@@ -1,6 +1,6 @@
 package br.org.catolicasc.model;
 
-public class Company {
+public class Company implements BaseDaoClass{
     //TODO esse id o ideal seria nós controlarmos, mas esquece
     private int id;
     private String name;
@@ -10,25 +10,18 @@ public class Company {
     private String city;
     private State state;
     private String email;
+    private Status status;
 
     public Company() {
+        status = Status.ACTIVE;
     }
 
-    public Company(int id, String name, String CNPJ, String address, String neighborhood, String city, State state, String email) {
-        this.id = id;
-        this.name = name;
-        this.CNPJ = CNPJ;
-        this.address = address;
-        this.neighborhood = neighborhood;
-        this.city = city;
-        this.state = state;
-        this.email = email;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -87,5 +80,13 @@ public class Company {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -1,6 +1,6 @@
 package br.org.catolicasc.model;
 
-public class InvoiceEntries {
+public class InvoiceEntries implements BaseDaoClass{
 
     //TODO provável que esteja faltando campo
     private int id;
@@ -10,6 +10,55 @@ public class InvoiceEntries {
     private User user;
     private Status status;
 
+    public InvoiceEntries() {
+        status = Status.ACTIVE;
+    }
 
+    @Override
+    public int getId() {
+        return id;
+    }
 
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumberInvoice() {
+        return numberInvoice;
+    }
+
+    public void setNumberInvoice(String numberInvoice) {
+        this.numberInvoice = numberInvoice;
+    }
+
+    public float getTotalValue() { return totalValue; }
+
+    public void setTotalValue(float totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

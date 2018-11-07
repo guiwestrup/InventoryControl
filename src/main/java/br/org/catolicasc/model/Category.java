@@ -2,25 +2,22 @@ package br.org.catolicasc.model;
 
 import java.security.Signature;
 
-public class Category {
+public class Category implements BaseDaoClass {
 
     private int id;
     private String name;
     private Status status;
 
     public Category() {
+        status = Status.ACTIVE;
     }
 
-    public Category(int id, String name, Status status) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -39,5 +36,14 @@ public class Category {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

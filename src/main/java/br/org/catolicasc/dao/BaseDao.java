@@ -3,27 +3,35 @@ package br.org.catolicasc.dao;
 import br.org.catolicasc.model.BaseDaoClass;
 import br.org.catolicasc.model.Status;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseDao<T>{
-    protected Connection conn;
-    protected String TABLE;
+public abstract class BaseDao<T extends BaseDaoClass>{
+    private Connection conn;
+    private String TABLE;
 
-    protected String[] attributes;
+    //  set this variables in child class {
+    //  todos os atributos da classe, alem do ID
+    private String[] attributes;
+    private String[] attributesType;
+    private String createAdditional;
+    //  }
 
-    protected PreparedStatement selectTodos;
-    protected PreparedStatement selectOne;
-    protected PreparedStatement insert;
-    protected PreparedStatement update;
-    protected PreparedStatement delete;
+    private PreparedStatement selectTodos;
+    private PreparedStatement selectOne;
+    private PreparedStatement insert;
+    private PreparedStatement update;
+    private PreparedStatement delete;
 
-    public BaseDao() {
+    protected BaseDao(Boolean dropTable, String TableName, String[] attributes, String[] attributesType, String createAdditional) {
+        this.TABLE = TableName;
+        this.attributes = attributes;
+        this.attributesType = attributesType;
+        this.createAdditional = createAdditional;
+
         String stringInsert = "";
+        String stringInsertValues = "";
         String stringUpdate = "";
 
         try {
@@ -31,27 +39,67 @@ public abstract class BaseDao<T>{
 
             selectTodos = conn.prepareStatement("SELECT * FROM " + TABLE);
             selectOne = conn.prepareStatement("SELECT * FROM " + TABLE + " WHERE id=?");
-            delete = conn.prepareStatement("UPDATE " + TABLE + " SET status=" + Status.ACTIVE + " WHERE id=? ");
+            //delete = conn.prepareStatement("UPDATE " + TABLE + " SET status=\"" + Status.ACTIVE + "\" WHERE id=?");
+            delete = conn.prepareStatement("DELETE FROM " + TABLE + " WHERE id=?");
 
             for(String att: attributes){
                 stringInsert += att + ",";
+                stringInsertValues += "?,";
                 stringUpdate += att + "=?,";
             }
 
-            stringInsert.substring(0,stringInsert.length() - 1);
-            stringUpdate.substring(0,stringUpdate.length() - 1);
+            stringInsert = stringInsert.substring(0,stringInsert.length() - 1);
+            stringInsertValues = stringInsertValues.substring(0,stringInsertValues.length() - 1);
+            stringUpdate = stringUpdate.substring(0,stringUpdate.length() - 1);
 
-            insert = conn.prepareStatement("INSERT INTO " + TABLE + " (" + stringInsert + ") VALUES (?,?)");
+            System.out.println(stringInsert);
+            System.out.println(stringInsertValues);
+            System.out.println(stringUpdate);
+
+            insert = conn.prepareStatement("INSERT INTO " + TABLE + " (" + stringInsert + ") VALUES (" + stringInsertValues + ")", Statement.RETURN_GENERATED_KEYS);
             update = conn.prepareStatement("UPDATE " + TABLE + " SET " + stringUpdate + " WHERE id=?");
-        } catch (SQLException e) {
+
+            createTable(dropTable);
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
     }
 
-    public abstract T getObjFromRs(ResultSet rs);
-    public abstract void setUpdateAttributes(T obj);
-    public abstract void setInsertAttributes(T obj);
+    private void createTable(Boolean dropTable) throws Exception {
+        if(attributes.length != attributesType.length){
+            throw new Exception("Attributes and Types is different");
+        }
+
+        Statement stmt = conn.createStatement();
+
+        if(dropTable){
+            String SqlDrop = "DROP TABLE IF EXISTS " + TABLE;
+            stmt.execute(SqlDrop);
+        }
+
+        if(createAdditional.length() > 0 && !createAdditional.substring(0,1).equals(",")){
+            createAdditional = "," + createAdditional;
+        }
+
+        String attWithTypesToCreateTable = "";
+
+        for (int i = 0; i < attributes.length; i++) {
+            attWithTypesToCreateTable += attributes[i] + " " + attributesType[i] + ",";
+        }
+
+        String sqlCreate = "CREATE TABLE IF NOT EXISTS " + TABLE
+                + " (id INT NOT NULL AUTO_INCREMENT,"
+                + attWithTypesToCreateTable
+                + "PRIMARY KEY (id)"
+                + createAdditional
+                + ")";
+
+        stmt.execute(sqlCreate);
+    }
+
+    public abstract T getObjFromRs(ResultSet rs) throws SQLException;
+    public abstract void setAttributesFromObj(PreparedStatement pstmt, T obj) throws SQLException;
 
     public List<T> getAll() {
         List<T> resultado = null;
@@ -106,10 +154,18 @@ public abstract class BaseDao<T>{
         int resultado = 0;
 
         try {
-            setInsertAttributes(obj);
+            setAttributesFromObj(insert, obj);
 
             // insere e retorna o numero de linhas atualizadas
             resultado = insert.executeUpdate();
+
+            ResultSet generatedKeys = insert.getGeneratedKeys();
+
+            if (generatedKeys.next()) {
+                obj.setId(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating client failed, no ID obtained.");
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -123,8 +179,8 @@ public abstract class BaseDao<T>{
         int resultado = 0;
 
         try {
-            setUpdateAttributes(obj);
-
+            setAttributesFromObj(update, obj);
+            update.setLong(attributes.length + 1, obj.getId());
             // retorna o numero de linhas atualizadas
             resultado = update.executeUpdate();
         } catch (SQLException ex) {

@@ -2,7 +2,7 @@ package br.org.catolicasc.model;
 
 import sun.security.util.Password;
 
-public class User {
+public class User implements BaseDaoClass{
 
     private int id;
     private String name;
@@ -15,22 +15,16 @@ public class User {
     private Role role;
     private Status status;
 
-    public User(){}
-
-    public User(String name, Password password, String address, String city, State state, Role role, Status status) {
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.role = role;
-        this.status = status;
+    public User(){
+        status = Status.ACTIVE;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
