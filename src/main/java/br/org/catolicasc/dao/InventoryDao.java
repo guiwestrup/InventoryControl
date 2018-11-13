@@ -7,11 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class InventoryDao extends BaseDao<Inventory>{
-    private int id;
-    private Product product;
-    private int quantity;
-    private InsertWithdraw insertWithdraw;
-    private Status status;
 
     protected InventoryDao() {
         super(
