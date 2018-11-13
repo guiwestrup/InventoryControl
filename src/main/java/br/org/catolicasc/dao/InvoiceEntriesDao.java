@@ -7,12 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
-    private int id;
-    private String numberInvoice;
-    private float totalValue;
-    private Vendor vendor;
-    private User user;
-    private Status status;
 
     private InvoiceEntriesDao() {
         super(

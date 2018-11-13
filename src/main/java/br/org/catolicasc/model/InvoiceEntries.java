@@ -1,11 +1,17 @@
 package br.org.catolicasc.model;
 
+import java.util.List;
+
 public class InvoiceEntries implements BaseDaoClass{
 
     //TODO provável que esteja faltando campo
     private int id;
     private String numberInvoice;
     private float totalValue;
+
+    private String description;
+    private List<InvoiceProducts> listProducts;
+
     private Vendor vendor;
     private User user;
     private Status status;
@@ -60,5 +66,21 @@ public class InvoiceEntries implements BaseDaoClass{
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<InvoiceProducts> getListProducts() {
+        return listProducts;
+    }
+
+    public void setListProducts(List<InvoiceProducts> listProducts) {
+        this.listProducts = listProducts;
     }
 }
