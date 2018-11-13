@@ -10,11 +10,10 @@ public class UserDao extends BaseDao<User> {
 
     private UserDao() {
         super(
-                true,
+                false,
                 "user",
                 new String[]{
                         "name",
-                        //TODO revisar esse Password
                         "password",
                         "address",
                         "city",
@@ -24,7 +23,6 @@ public class UserDao extends BaseDao<User> {
                 },
                 new String[]{
                         "VARCHAR(255)",
-                        //TODO revisar esse Type de Password
                         "VARCHAR(255)",
                         "VARCHAR(255)",
                         "VARCHAR(255)",
@@ -45,13 +43,12 @@ public class UserDao extends BaseDao<User> {
         User user = new User();
         user.setId(rs.getInt("id"));
         user.setName(rs.getString("name"));
-        //TODO revisar esse Password
-        //user.setPassword(rs.getString("password"));
+        user.setPassword(rs.getString("password"));
         user.setAddress(rs.getString("address"));
         user.setCity(rs.getString("city"));
         user.setState(State.valueOf(rs.getString("state")));
-        user.setRole(Role.valueOf(rs.getString("state")));
-        user.setStatus(Status.valueOf(rs.getString("state")));
+        user.setRole(Role.valueOf(rs.getString("role")));
+        user.setStatus(Status.valueOf(rs.getString("status")));
         return user;
     }
 

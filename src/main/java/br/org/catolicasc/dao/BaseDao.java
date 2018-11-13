@@ -55,7 +55,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
             insert = conn.prepareStatement("INSERT INTO " + TABLE + " (" + stringInsert + ") VALUES (" + stringInsertValues + ")", Statement.RETURN_GENERATED_KEYS);
             update = conn.prepareStatement("UPDATE " + TABLE + " SET " + stringUpdate + " WHERE id=?");
 
-            createTable(dropTable);
+            createTable(false);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);

@@ -10,7 +10,7 @@ public class VendorDao extends BaseDao<Vendor>{
 
     private VendorDao() {
         super(
-                true,
+                false,
                 "vendor",
                 new String[]{
                         "company",

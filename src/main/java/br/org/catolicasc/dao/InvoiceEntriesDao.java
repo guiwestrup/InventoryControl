@@ -27,8 +27,7 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
                 },
                 new String[]{
                         "VARCHAR(255)",
-                        //TODO verificar o tamanho do float
-                        "DECIMAL(15,6)",
+                        "DECIMAL(10,2)",
                         "INT",
                         "INT",
                         "ENUM(" + Utils.getStrings(Status.class) + ")",

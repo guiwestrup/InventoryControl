@@ -6,9 +6,7 @@ public class User implements BaseDaoClass{
 
     private int id;
     private String name;
-    //TODO revisar esse Password
-    private Password password;
-    //TODO teste
+    private String password;
     private String address;
     private String city;
     private State state;
@@ -17,6 +15,17 @@ public class User implements BaseDaoClass{
 
     public User(){
         status = Status.ACTIVE;
+    }
+
+    public User(String name, String address, String city, String password, State state, Role role, Status status)
+    {
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.password = password;
+        this.state = state;
+        this.role = role;
+        this.status = status;
     }
 
     @Override
@@ -37,11 +46,11 @@ public class User implements BaseDaoClass{
         this.name = name;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -83,5 +92,19 @@ public class User implements BaseDaoClass{
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state=" + state +
+                ", role=" + role +
+                ", status=" + status +
+                '}';
     }
 }

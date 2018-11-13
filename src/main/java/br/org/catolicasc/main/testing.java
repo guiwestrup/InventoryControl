@@ -1,6 +1,10 @@
 package br.org.catolicasc.main;
 
 import br.org.catolicasc.dao.*;
+import br.org.catolicasc.model.Role;
+import br.org.catolicasc.model.State;
+import br.org.catolicasc.model.Status;
+import br.org.catolicasc.model.User;
 
 public class testing {
     public static void main(String[] args) {
@@ -17,5 +21,9 @@ public class testing {
         InvoiceEntriesDao.getNewInstance();
         InvoiceProductsDao.getNewInstance();
         ControlDao.getNewInstance();
+
+        //User user = new User("guizao","rua dali","xaraguá","123", State.SC, Role.ADMIN, Status.ACTIVE);
+        //UserDao.getNewInstance().insert(user);
+        System.out.println(UserDao.getNewInstance().getById(1).toString());
     }
 }

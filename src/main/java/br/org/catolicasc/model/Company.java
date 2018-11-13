@@ -1,7 +1,6 @@
 package br.org.catolicasc.model;
 
 public class Company implements BaseDaoClass{
-    //TODO esse id o ideal seria nós controlarmos, mas esquece
     private int id;
     private String name;
     private String CNPJ;

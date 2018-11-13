@@ -22,9 +22,8 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
                 },
                 new String[]{
                         "INT",
-                        //TODO verificar o tamanho do float
-                        "DECIMAL(15,6)",
-                        "DECIMAL(15,6)",
+                        "DECIMAL(10,2)",
+                        "DECIMAL(10,2)",
                         "INT",
                         "INT",
                         "ENUM(" + Utils.getStrings(Status.class) + ")"

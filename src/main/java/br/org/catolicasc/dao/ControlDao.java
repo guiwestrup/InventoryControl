@@ -39,8 +39,7 @@ public class ControlDao extends BaseDao<Control>{
                 new String[]{
                         "VARCHAR(255)",
                         "INT",
-                        //TODO verificar o tamanho do float
-                        "DECIMAL(15,6)",
+                        "DECIMAL(10,2)",
                         "DATE",
                         "INT",
                         "INT",
