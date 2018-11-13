@@ -5,6 +5,7 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
 
@@ -14,12 +15,14 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
                 "invoice_entries",
                 new String[]{
                         "number_invoice",
+                        "description",
                         "total_value",
                         "id_vendor",
                         "id_user",
                         "status"
                 },
                 new String[]{
+                        "VARCHAR(255)",
                         "VARCHAR(255)",
                         "DECIMAL(10,2)",
                         "INT",
@@ -40,19 +43,28 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
         InvoiceEntries invoiceEntries = new InvoiceEntries();
         invoiceEntries.setId(rs.getInt("id"));
         invoiceEntries.setNumberInvoice(rs.getString("number_invoice"));
+        invoiceEntries.setDescription(rs.getString("description"));
         invoiceEntries.setTotalValue(rs.getFloat("total_value"));
         invoiceEntries.setVendor(VendorDao.getNewInstance().getById(rs.getInt("id_vendor")));
         invoiceEntries.setUser(UserDao.getNewInstance().getById(rs.getInt("id_user")));
         invoiceEntries.setStatus(Status.valueOf(rs.getString("status")));
+
+        invoiceEntries.setListProducts(InvoiceProductsDao.getNewInstance().getAllWithWhere("id_invoice_entries=" + invoiceEntries.getId()));
+
         return invoiceEntries;
     }
 
     @Override
     public void setAttributesFromObj(PreparedStatement pstmt, InvoiceEntries obj) throws SQLException {
         pstmt.setString(1,obj.getNumberInvoice());
-        pstmt.setFloat(2,obj.getTotalValue());
-        if(obj.getVendor() != null) pstmt.setInt(3,obj.getVendor().getId());
-        if(obj.getUser() != null) pstmt.setInt(4,obj.getUser().getId());
-        pstmt.setString(5,obj.getStatus().toString());
+        pstmt.setString(2,obj.getDescription());
+        pstmt.setFloat(3,obj.getTotalValue());
+        if(obj.getVendor() != null) pstmt.setInt(4,obj.getVendor().getId());
+        if(obj.getUser() != null) pstmt.setInt(5,obj.getUser().getId());
+        pstmt.setString(6,obj.getStatus().toString());
+
+        for (InvoiceProducts o: obj.getListProducts()) {
+            InvoiceProductsDao.getNewInstance().modify(o);
+        }
     }
 }

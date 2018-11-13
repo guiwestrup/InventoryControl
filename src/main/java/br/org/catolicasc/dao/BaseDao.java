@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseDao<T extends BaseDaoClass>{
-    private Connection conn;
-    private String TABLE;
+    protected Connection conn;
+    protected String TABLE;
 
     //  set this variables in child class {
     //  todos os atributos da classe, alem do ID
@@ -121,6 +121,30 @@ public abstract class BaseDao<T extends BaseDaoClass>{
         return resultado;
     }
 
+    public List<T> getAllWithWhere(String whereParams) {
+        List<T> resultado = null;
+        ResultSet rs = null;
+
+        try {
+            rs = conn.prepareStatement("SELECT * FROM " + TABLE + " WHERE " + whereParams).executeQuery();
+            resultado = new ArrayList<>();
+
+            while (rs.next()) {
+                resultado.add(getObjFromRs(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                close();
+            }
+        }
+        return resultado;
+    }
+
     public T getById(int id){
         T resultado = null;
         ResultSet rs = null;
@@ -146,39 +170,25 @@ public abstract class BaseDao<T extends BaseDaoClass>{
         return resultado;
     }
 
-    public int insert(T obj) {
+    public int modify(T obj) {
         int resultado = 0;
 
         try {
-            setAttributesFromObj(insert, obj);
+            if(getById(obj.getId()) != null){
+                update.setLong(attributes.length + 1, obj.getId());
+                resultado = update.executeUpdate();
+            }else{
+                setAttributesFromObj(insert, obj);
+                resultado = insert.executeUpdate();
 
-            // insere e retorna o numero de linhas atualizadas
-            resultado = insert.executeUpdate();
+                ResultSet generatedKeys = insert.getGeneratedKeys();
 
-            ResultSet generatedKeys = insert.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                obj.setId(generatedKeys.getInt(1));
-            } else {
-                throw new SQLException("Creating client failed, no ID obtained.");
+                if (generatedKeys.next()) {
+                    obj.setId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating client failed, no ID obtained.");
+                }
             }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            close();
-        }
-
-        return resultado;
-    }
-
-    public int update(T obj) {
-        int resultado = 0;
-
-        try {
-            setAttributesFromObj(update, obj);
-            update.setLong(attributes.length + 1, obj.getId());
-            // retorna o numero de linhas atualizadas
-            resultado = update.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
             close();
