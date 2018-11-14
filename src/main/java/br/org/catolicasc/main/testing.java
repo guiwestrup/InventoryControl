@@ -20,7 +20,6 @@ public class testing {
         VendorDao.getNewInstance();
         InvoiceEntriesDao.getNewInstance();
         InvoiceProductsDao.getNewInstance();
-        ControlDao.getNewInstance();
 
         //User user = new User("guizao","rua dali","xaraguá","123", State.SC, Role.ADMIN, Status.ACTIVE);
         //UserDao.getNewInstance().insert(user);
