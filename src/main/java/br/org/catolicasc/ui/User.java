@@ -13,8 +13,8 @@ public class User {
     private JTextField textField5;
     private JTextField textField6;
     private JPasswordField passwordField1;
-    private JButton salvarButton;
     private JButton cancelarButton;
+    private JButton salvarButton1;
 
     public User() {
         button_msg.addActionListener(new ActionListener() {
