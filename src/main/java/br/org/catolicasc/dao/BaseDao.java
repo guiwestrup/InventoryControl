@@ -98,12 +98,11 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     public abstract void setAttributesFromObj(PreparedStatement pstmt, T obj) throws SQLException;
 
     public List<T> getAll() {
-        List<T> resultado = null;
+        List<T> resultado = new ArrayList<>();
         ResultSet rs = null;
 
         try {
             rs = selectTodos.executeQuery();
-            resultado = new ArrayList<>();
 
             while (rs.next()) {
                 resultado.add(getObjFromRs(rs));
@@ -122,12 +121,11 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     }
 
     public List<T> getAllWithWhere(String whereParams) {
-        List<T> resultado = null;
+        List<T> resultado = new ArrayList<>();
         ResultSet rs = null;
 
         try {
             rs = conn.prepareStatement("SELECT * FROM " + TABLE + " WHERE " + whereParams).executeQuery();
-            resultado = new ArrayList<>();
 
             while (rs.next()) {
                 resultado.add(getObjFromRs(rs));

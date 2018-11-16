@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
+    private static boolean MARIADB = false;
+
     private static String DATABASE;
     private static String JDBC_DRIVER;
     private static String URL;
@@ -20,16 +22,16 @@ public class ConnectionManager {
 
         DATABASE = "inventory-control";
 
-        if(true){
+        if(MARIADB){
             JDBC_DRIVER = "org.mariadb.jdbc.Driver";
             URL = "jdbc:mariadb://localhost:3306/" + DATABASE + "?useSSL=false";
             USER = "root";
             PASSWORD = "root";
         }else{
-            JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-            URL = "jdbc:mariadb://localhost:3306/" + DATABASE + "?useSSL=false";
+            JDBC_DRIVER = "com.mysql.jdbc.Driver";
+            URL = "jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false";
             USER = "root";
-            PASSWORD = "root";
+            PASSWORD = "";
         }
     }
 
