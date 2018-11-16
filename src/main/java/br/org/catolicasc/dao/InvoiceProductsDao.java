@@ -10,7 +10,6 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
 
     private InvoiceProductsDao() {
         super(
-                true,
                 "invoice_products",
                 new String[]{
                         "quantity",

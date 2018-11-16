@@ -12,7 +12,6 @@ public class ProductDao extends BaseDao<Product> {
 
     private ProductDao() {
         super(
-                true,
                 "product",
                 new String[]{
                         "name",

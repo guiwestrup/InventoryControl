@@ -24,7 +24,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     private PreparedStatement update;
     private PreparedStatement delete;
 
-    protected BaseDao(Boolean dropTable, String TableName, String[] attributes, String[] attributesType, String createAdditional) {
+    protected BaseDao(String TableName, String[] attributes, String[] attributesType, String createAdditional) {
         this.TABLE = TableName;
         this.attributes = attributes;
         this.attributesType = attributesType;
