@@ -2,12 +2,13 @@ package br.org.catolicasc.ui;
 
 import javax.swing.*;
 
-public class Login {
-    private JPasswordField passwordField1;
+public class Cadastro {
+    private JPanel panel1;
     private JFormattedTextField formattedTextField1;
-    private JButton connectButton;
-    private JButton clearButton;
-    private JCheckBox lembrarInformarçõesCheckBox;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JSpinner spinner1;
+    private JTextField textField1;
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
