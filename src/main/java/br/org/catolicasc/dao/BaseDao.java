@@ -24,7 +24,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     private PreparedStatement update;
     private PreparedStatement delete;
 
-    protected BaseDao(Boolean dropTable, String TableName, String[] attributes, String[] attributesType, String createAdditional) {
+    protected BaseDao(String TableName, String[] attributes, String[] attributesType, String createAdditional) {
         this.TABLE = TableName;
         this.attributes = attributes;
         this.attributesType = attributesType;
@@ -103,7 +103,6 @@ public abstract class BaseDao<T extends BaseDaoClass>{
 
         try {
             rs = selectTodos.executeQuery();
-            resultado = new ArrayList<>();
 
             while (rs.next()) {
                 resultado.add(getObjFromRs(rs));
@@ -127,7 +126,6 @@ public abstract class BaseDao<T extends BaseDaoClass>{
 
         try {
             rs = conn.prepareStatement("SELECT * FROM " + TABLE + " WHERE " + whereParams).executeQuery();
-            resultado = new ArrayList<>();
 
             while (rs.next()) {
                 resultado.add(getObjFromRs(rs));

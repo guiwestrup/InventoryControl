@@ -6,17 +6,33 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    private static final String DATABASE = "inventory-control";
-    private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-    private static final String URL = "jdbc:mariadb://localhost:3306/" + DATABASE + "?useSSL=false";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static boolean MARIADB = false;
+
+    private static String DATABASE;
+    private static String JDBC_DRIVER;
+    private static String URL;
+    private static String USER ;
+    private static String PASSWORD;
 
     private static Connection conn = null;
     private static ConnectionManager mngr;
 
     static {
         mngr = new ConnectionManager();
+
+        DATABASE = "inventory-control";
+
+        if(MARIADB){
+            JDBC_DRIVER = "org.mariadb.jdbc.Driver";
+            URL = "jdbc:mariadb://localhost:3306/" + DATABASE + "?useSSL=false";
+            USER = "root";
+            PASSWORD = "root";
+        }else{
+            JDBC_DRIVER = "com.mysql.jdbc.Driver";
+            URL = "jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false";
+            USER = "root";
+            PASSWORD = "";
+        }
     }
 
     public static ConnectionManager getInstance() {

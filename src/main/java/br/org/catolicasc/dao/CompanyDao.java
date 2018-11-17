@@ -13,7 +13,6 @@ public class CompanyDao extends BaseDao<Company> {
 
     private CompanyDao() {
         super(
-                true,
                 "company",
                 new String[]{
                         "name",

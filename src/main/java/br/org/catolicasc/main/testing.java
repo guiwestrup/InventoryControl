@@ -6,6 +6,11 @@ import br.org.catolicasc.model.State;
 import br.org.catolicasc.model.Status;
 import br.org.catolicasc.model.User;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 public class testing {
     public static void main(String[] args) {
         // create DataBase
@@ -21,9 +26,6 @@ public class testing {
         InvoiceEntriesDao.getNewInstance();
         InvoiceProductsDao.getNewInstance();
 
-        //UserUi user = new UserUi("guizao","rua dali","xaraguá","123", State.SC, Role.ADMIN, Status.ACTIVE);
-        //UserDao.getNewInstance().insert(user);
-        System.out.println(UserDao.getNewInstance().getById(1).toString());
-        System.out.println(UserDao.getNewInstance().getAllWithWhere("name='admin'"));
+
     }
 }

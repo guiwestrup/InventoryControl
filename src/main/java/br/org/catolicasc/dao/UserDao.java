@@ -10,7 +10,6 @@ public class UserDao extends BaseDao<User> {
 
     private UserDao() {
         super(
-                false,
                 "user",
                 new String[]{
                         "name",

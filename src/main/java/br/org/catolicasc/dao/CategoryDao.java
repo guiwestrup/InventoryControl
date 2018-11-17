@@ -14,7 +14,6 @@ public class CategoryDao extends BaseDao<Category>{
 
     private CategoryDao(){
         super(
-                true,
                 "category",
                 new String[]{
                         "name",
