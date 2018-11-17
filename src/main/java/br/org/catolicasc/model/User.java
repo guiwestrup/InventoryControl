@@ -96,7 +96,7 @@ public class User implements BaseDaoClass{
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserUi{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

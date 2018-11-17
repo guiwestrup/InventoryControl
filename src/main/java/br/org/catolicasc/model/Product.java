@@ -5,8 +5,8 @@ public class Product implements BaseDaoClass{
     private int id;
     private String name;
     private String cean;
-    private String ncmcode;
-    private String aliquota;
+    private String marca;
+    private String categoria;
     private int CFOP;
     private int sittributaria;
     private int codcest;
@@ -39,19 +39,19 @@ public class Product implements BaseDaoClass{
     }
 
     public String getNcmcode() {
-        return ncmcode;
+        return marca;
     }
 
-    public void setNcmcode(String ncmcode) {
-        this.ncmcode = ncmcode;
+    public void setNcmcode(String marca) {
+        this.marca = marca;
     }
 
     public String getAliquota() {
-        return aliquota;
+        return categoria;
     }
 
-    public void setAliquota(String aliquota) {
-        this.aliquota = aliquota;
+    public void setAliquota(String categoria) {
+        this.categoria = categoria;
     }
 
     public int getCFOP() {

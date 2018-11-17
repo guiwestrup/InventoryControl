@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class User {
+public class UserUi {
     private JButton button_msg;
     private JPanel panelMain;
     private JTextField textField1;
@@ -16,7 +16,7 @@ public class User {
     private JButton cancelarButton;
     private JButton salvarButton1;
 
-    public User() {
+    public UserUi() {
         button_msg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,8 +26,8 @@ public class User {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("User");
-        frame.setContentPane(new User().panelMain);
+        JFrame frame = new JFrame("UserUi");
+        frame.setContentPane(new UserUi().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

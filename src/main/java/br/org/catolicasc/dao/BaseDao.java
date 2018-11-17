@@ -98,7 +98,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     public abstract void setAttributesFromObj(PreparedStatement pstmt, T obj) throws SQLException;
 
     public List<T> getAll() {
-        List<T> resultado = null;
+        List<T> resultado = new ArrayList<>();
         ResultSet rs = null;
 
         try {
@@ -122,7 +122,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
     }
 
     public List<T> getAllWithWhere(String whereParams) {
-        List<T> resultado = null;
+        List<T> resultado = new ArrayList<>();
         ResultSet rs = null;
 
         try {
