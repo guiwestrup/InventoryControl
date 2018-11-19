@@ -10,7 +10,6 @@ public class UserDao extends BaseDao<User> {
 
     private UserDao() {
         super(
-                false,
                 "user",
                 new String[]{
                         "name",
@@ -55,8 +54,7 @@ public class UserDao extends BaseDao<User> {
     @Override
     public void setAttributesFromObj(PreparedStatement pstmt, User obj) throws SQLException {
         pstmt.setString(1, obj.getName());
-        //TODO revisar esse set Password
-        pstmt.setString(2, "teste senha");
+        pstmt.setString(2, obj.getPassword());
         pstmt.setString(3, obj.getAddress());
         pstmt.setString(4, obj.getCity());
         pstmt.setString(5, obj.getState().toString());

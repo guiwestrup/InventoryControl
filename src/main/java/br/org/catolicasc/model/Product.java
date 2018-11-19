@@ -5,12 +5,20 @@ public class Product implements BaseDaoClass{
     private int id;
     private String name;
     private String cean;
-    private String ncmcode;
-    private String aliquota;
-    private int CFOP;
-    private int sittributaria;
-    private int codcest;
+    private String marca;
+    private Category categoria;
     private UnitType unit;
+
+    public Product() {
+    }
+
+    public Product(String name, String cean, String marca, Category categoria, UnitType unit) {
+        this.name = name;
+        this.cean = cean;
+        this.marca = marca;
+        this.categoria = categoria;
+        this.unit = unit;
+    }
 
     @Override
     public int getId() {
@@ -38,44 +46,20 @@ public class Product implements BaseDaoClass{
         this.cean = cean;
     }
 
-    public String getNcmcode() {
-        return ncmcode;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setNcmcode(String ncmcode) {
-        this.ncmcode = ncmcode;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public String getAliquota() {
-        return aliquota;
+    public Category getCategoria() {
+        return categoria;
     }
 
-    public void setAliquota(String aliquota) {
-        this.aliquota = aliquota;
-    }
-
-    public int getCFOP() {
-        return CFOP;
-    }
-
-    public void setCFOP(int CFOP) {
-        this.CFOP = CFOP;
-    }
-
-    public int getSittributaria() {
-        return sittributaria;
-    }
-
-    public void setSittributaria(int sittributaria) {
-        this.sittributaria = sittributaria;
-    }
-
-    public int getCodcest() {
-        return codcest;
-    }
-
-    public void setCodcest(int codcest) {
-        this.codcest = codcest;
+    public void setCategoria(Category categoria) {
+        this.categoria = categoria;
     }
 
     public UnitType getUnit() {

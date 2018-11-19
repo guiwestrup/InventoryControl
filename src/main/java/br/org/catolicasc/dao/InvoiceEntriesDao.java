@@ -11,7 +11,6 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
 
     private InvoiceEntriesDao() {
         super(
-                true,
                 "invoice_entries",
                 new String[]{
                         "number_invoice",

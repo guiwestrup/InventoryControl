@@ -10,7 +10,6 @@ public class InventoryDao extends BaseDao<Inventory>{
 
     protected InventoryDao() {
         super(
-                true,
                 "inventory",
                 new String[]{
                         "quantity",

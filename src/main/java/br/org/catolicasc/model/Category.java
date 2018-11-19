@@ -8,8 +8,13 @@ public class Category implements BaseDaoClass {
     private String name;
     private Status status;
 
+    public Category(String name) {
+        this.name = name;
+        this.status = Status.ACTIVE;
+    }
+
     public Category() {
-        status = Status.ACTIVE;
+
     }
 
     @Override
