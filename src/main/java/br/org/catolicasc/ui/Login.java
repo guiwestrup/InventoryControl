@@ -11,8 +11,8 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class Login {
-    private JPasswordField textSenha;
-    private JFormattedTextField textLogin;
+    private JPasswordField senhaText;
+    private JFormattedTextField loginText;
     private JButton connectButton;
     private JButton clearButton;
     private JCheckBox rememberInfo;
@@ -32,13 +32,13 @@ public class Login {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textLogin.setText("");
-                textSenha.setText("");
-                textLogin.requestFocus(true);
+                loginText.setText("");
+                senhaText.setText("");
+                loginText.requestFocus(true);
             }
         });
 
-        textLogin.addKeyListener(new KeyAdapter() {
+        loginText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -46,7 +46,7 @@ public class Login {
                 }
             }
         });
-        textSenha.addKeyListener(new KeyAdapter() {
+        senhaText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -63,17 +63,17 @@ public class Login {
 
 
     private void executaLogin(){
-        String login = textLogin.getText();
-        String senha = textSenha.getText();
+        String login = loginText.getText();
+        String senha = senhaText.getText();
         if(login.equals("") && senha.equals("")){
             JOptionPane.showMessageDialog(null, "Senha e login precisam ser preenchidos!");
-            textLogin.requestFocus(true);
+            loginText.requestFocus(true);
         }
         else{
-            List<User> listUser =  UserDao.getNewInstance().getAllWithWhere("name='" + textLogin.getText() + "'");
+            List<User> listUser =  UserDao.getNewInstance().getAllWithWhere("name='" + loginText.getText() + "'");
             if(!listUser.isEmpty() && listUser.get(0).getPassword().equals(senha)){
                 new Main(listUser.get(0).getName());
-                loginFrame.dispose();
+                this.close();
             }else{
                 JOptionPane.showMessageDialog(null,"não encontrado");
             }
@@ -88,6 +88,11 @@ public class Login {
         loginFrame.pack();
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setVisible(true);
+    }
+
+    public void close(){
+        System.out.println("cheguei");
+        loginFrame.dispose();
     }
 
 }

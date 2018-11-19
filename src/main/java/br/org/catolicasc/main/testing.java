@@ -26,6 +26,7 @@ public class testing {
         InvoiceEntriesDao.getNewInstance();
         InvoiceProductsDao.getNewInstance();
 
+        //User user = new User("guizao","rua dali","xaraguá","123", State.SC, Role.ADMIN, Status.ACTIVE);
 
     }
 }

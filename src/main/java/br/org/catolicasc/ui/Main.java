@@ -31,10 +31,13 @@ public class Main {
                 new CadProdutoUI();
             }
         });
+        categoriaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CategoriesUI();
+            }
+        });
     }
 
-    public static void main(String[] args) {
-
-    }
 
 }
