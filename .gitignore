@@ -26,3 +26,5 @@ hs_err_pid*
 
 inventoryControl.iml
 src/main/main.iml
+
+target\maven-status\maven-compiler-plugin\compile\default-compile

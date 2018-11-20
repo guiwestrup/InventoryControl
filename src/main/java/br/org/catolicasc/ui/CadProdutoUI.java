@@ -5,8 +5,6 @@ import br.org.catolicasc.dao.ProductDao;
 import br.org.catolicasc.model.Category;
 import br.org.catolicasc.model.Product;
 import br.org.catolicasc.model.UnitType;
-import javafx.collections.FXCollections;
-import sun.tools.jconsole.Plotter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
