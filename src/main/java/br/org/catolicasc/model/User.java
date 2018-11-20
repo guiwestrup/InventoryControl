@@ -11,13 +11,12 @@ public class User implements BaseDaoClass{
     private String city;
     private State state;
     private Role role;
-    private Status status;
 
     public User(){
-        status = Status.ACTIVE;
+
     }
 
-    public User(String name, String address, String city, String password, State state, Role role, Status status)
+    public User(String name, String address, String city, String password, State state, Role role)
     {
         this.name = name;
         this.address = address;
@@ -25,7 +24,6 @@ public class User implements BaseDaoClass{
         this.password = password;
         this.state = state;
         this.role = role;
-        this.status = status;
     }
 
     @Override
@@ -86,14 +84,6 @@ public class User implements BaseDaoClass{
         this.role = role;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "UserUi{" +
@@ -104,7 +94,6 @@ public class User implements BaseDaoClass{
                 ", city='" + city + '\'' +
                 ", state=" + state +
                 ", role=" + role +
-                ", status=" + status +
                 '}';
     }
 }

@@ -12,9 +12,12 @@ public class NewCategoryUI {
     private JPanel newCategoryMain;
     private JButton salvarButton;
     private JButton voltarButton;
-    private JFrame newCategoryFrame;
 
-    public NewCategoryUI() {
+    private boolean isEdit;
+    private Category cat;
+
+    public NewCategoryUI(CategoriesUI c) {
+        cat = new Category();
         JFrame newCategoryFrame = new JFrame("");
         newCategoryFrame.setContentPane(newCategoryMain);
         newCategoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -35,12 +38,17 @@ public class NewCategoryUI {
                     JOptionPane.showMessageDialog(null,"o nome da categoria não pode ficar em branco!");
                 }
                 else{
-                    Category category = new Category(nomeText.getText());
-                    System.out.println(category);
-                    int a = CategoryDao.getNewInstance().modify(category);
+                    if(!isEdit){
+                        cat = new Category(nomeText.getText());
+                    }
+                    System.out.println(cat);
+                    int a = CategoryDao.getNewInstance().modify(cat);
                     if(a>0){
-                        JOptionPane.showMessageDialog(null,"Categoria cadastrada com sucesso");
+                        if(!isEdit){
+                            JOptionPane.showMessageDialog(null,"Categoria cadastrada com sucesso");
+                        }
                         newCategoryFrame.dispose();
+                        c.findCategories();
                     }
                     else{
                         JOptionPane.showMessageDialog(null,"Algum problema na inserção.");
@@ -51,5 +59,9 @@ public class NewCategoryUI {
         });
     }
 
-
+    public void setCategaryToEdit(Category c){
+        isEdit = true;
+        cat = c;
+        nomeText.setText(c.getName());
+    }
 }

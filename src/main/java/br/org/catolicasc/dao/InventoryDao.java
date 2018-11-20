@@ -14,14 +14,12 @@ public class InventoryDao extends BaseDao<Inventory>{
                 new String[]{
                         "quantity",
                         "id_product",
-                        "insertWithDraw",
-                        "status"
+                        "insertWithDraw"
                 },
                 new String[]{
                         "INT",
                         "INT",
-                        "ENUM("+Utils.getStrings(InsertWithdraw.class)+")",
-                        "ENUM("+Utils.getStrings(Status.class)+")"
+                        "ENUM("+Utils.getStrings(InsertWithdraw.class)+")"
                 },
                 "FOREIGN KEY (id_product) REFERENCES product(id)"
         );
@@ -34,7 +32,6 @@ public class InventoryDao extends BaseDao<Inventory>{
         inventory.setQuantity(rs.getInt("quantity"));
         inventory.setProduct(ProductDao.getNewInstance().getById(rs.getInt("id_product")));
         inventory.setInsertWithdraw(InsertWithdraw.valueOf(rs.getString("insertWithDraw")));
-        inventory.setStatus(Status.valueOf(rs.getString("status")));
         return inventory;
     }
 
@@ -43,6 +40,5 @@ public class InventoryDao extends BaseDao<Inventory>{
         pstmt.setInt(1, obj.getQuantity());
         if(obj.getProduct() != null) pstmt.setInt(2, obj.getQuantity());
         pstmt.setString(3, obj.getInsertWithdraw().toString());
-        pstmt.setString(3, obj.getStatus().toString());
     }
 }

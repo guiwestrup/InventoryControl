@@ -1,5 +1,6 @@
 package br.org.catolicasc.model;
 
+//fornecedor
 public class Vendor implements BaseDaoClass{
 
     private int id;
@@ -14,11 +15,9 @@ public class Vendor implements BaseDaoClass{
     private String zipcode;
     private String city;
     private State state;
-    private Category category;
-    private Status status;
 
     public Vendor(){
-        status = Status.ACTIVE;
+
     }
 
     @Override
@@ -101,22 +100,6 @@ public class Vendor implements BaseDaoClass{
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }
 

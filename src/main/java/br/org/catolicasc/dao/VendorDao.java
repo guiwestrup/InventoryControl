@@ -20,9 +20,7 @@ public class VendorDao extends BaseDao<Vendor>{
                         "email",
                         "zipcode",
                         "city",
-                        "state",
-                        "id_category",
-                        "status"
+                        "state"
                 },
                 new String[]{
                         "VARCHAR(255)",
@@ -33,11 +31,9 @@ public class VendorDao extends BaseDao<Vendor>{
                         "VARCHAR(255)",
                         "VARCHAR(255)",
                         "VARCHAR(255)",
-                        "ENUM(" + Utils.getStrings(State.class) + ")",
-                        "INT",
-                        "ENUM(" + Utils.getStrings(Status.class) + ")",
+                        "ENUM(" + Utils.getStrings(State.class) + ")"
                 },
-                "FOREIGN KEY (id_category) REFERENCES category(id)"
+                ""
         );
     }
 
@@ -57,8 +53,6 @@ public class VendorDao extends BaseDao<Vendor>{
         vendor.setZipcode(rs.getString("zipcode"));
         vendor.setCity(rs.getString("city"));
         vendor.setState(State.valueOf(rs.getString("state")));
-        vendor.setCategory(CategoryDao.getNewInstance().getById(rs.getInt("id_category")));
-        vendor.setStatus(Status.valueOf(rs.getString("status")));
         return vendor;
     }
 
@@ -73,7 +67,5 @@ public class VendorDao extends BaseDao<Vendor>{
         pstmt.setString(7,obj.getZipcode());
         pstmt.setString(8,obj.getCity());
         pstmt.setString(9,obj.getState().toString());
-        if(obj.getCategory() != null) pstmt.setInt(10, obj.getCategory().getId());
-        pstmt.setString(11,obj.getStatus().toString());
     }
 }

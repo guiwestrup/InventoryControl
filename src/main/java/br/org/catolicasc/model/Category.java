@@ -6,11 +6,9 @@ public class Category implements BaseDaoClass {
 
     private int id;
     private String name;
-    private Status status;
 
     public Category(String name) {
         this.name = name;
-        this.status = Status.ACTIVE;
     }
 
     public Category() {
@@ -35,20 +33,11 @@ public class Category implements BaseDaoClass {
         this.name = name;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", status=" + status +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package br.org.catolicasc.dao;
 
 import br.org.catolicasc.model.BaseDaoClass;
-import br.org.catolicasc.model.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -173,6 +172,7 @@ public abstract class BaseDao<T extends BaseDaoClass>{
 
         try {
             if(getById(obj.getId()) != null){
+                setAttributesFromObj(update, obj);
                 update.setLong(attributes.length + 1, obj.getId());
                 resultado = update.executeUpdate();
             }else{

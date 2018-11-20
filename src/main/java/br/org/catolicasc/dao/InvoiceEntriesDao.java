@@ -5,7 +5,6 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
 
 public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
 
@@ -17,16 +16,14 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
                         "description",
                         "total_value",
                         "id_vendor",
-                        "id_user",
-                        "status"
+                        "id_user"
                 },
                 new String[]{
                         "VARCHAR(255)",
                         "VARCHAR(255)",
                         "DECIMAL(10,2)",
                         "INT",
-                        "INT",
-                        "ENUM(" + Utils.getStrings(Status.class) + ")",
+                        "INT"
                 },
                 "FOREIGN KEY (id_vendor) REFERENCES vendor(id)," +
                         "FOREIGN KEY (id_user) REFERENCES user(id)"
@@ -46,7 +43,6 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
         invoiceEntries.setTotalValue(rs.getFloat("total_value"));
         invoiceEntries.setVendor(VendorDao.getNewInstance().getById(rs.getInt("id_vendor")));
         invoiceEntries.setUser(UserDao.getNewInstance().getById(rs.getInt("id_user")));
-        invoiceEntries.setStatus(Status.valueOf(rs.getString("status")));
 
         invoiceEntries.setListProducts(InvoiceProductsDao.getNewInstance().getAllWithWhere("id_invoice_entries=" + invoiceEntries.getId()));
 
@@ -60,7 +56,6 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
         pstmt.setFloat(3,obj.getTotalValue());
         if(obj.getVendor() != null) pstmt.setInt(4,obj.getVendor().getId());
         if(obj.getUser() != null) pstmt.setInt(5,obj.getUser().getId());
-        pstmt.setString(6,obj.getStatus().toString());
 
         for (InvoiceProducts o: obj.getListProducts()) {
             InvoiceProductsDao.getNewInstance().modify(o);

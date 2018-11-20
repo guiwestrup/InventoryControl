@@ -14,10 +14,8 @@ public class InvoiceEntries implements BaseDaoClass{
 
     private Vendor vendor;
     private User user;
-    private Status status;
 
-    public InvoiceEntries() {
-        status = Status.ACTIVE;
+    public InvoiceEntries(){
     }
 
     @Override
@@ -58,14 +56,6 @@ public class InvoiceEntries implements BaseDaoClass{
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getDescription() {

@@ -17,8 +17,7 @@ public class UserDao extends BaseDao<User> {
                         "address",
                         "city",
                         "state",
-                        "role",
-                        "status"
+                        "role"
                 },
                 new String[]{
                         "VARCHAR(255)",
@@ -26,8 +25,7 @@ public class UserDao extends BaseDao<User> {
                         "VARCHAR(255)",
                         "VARCHAR(255)",
                         "ENUM(" + Utils.getStrings(State.class) + ")",
-                        "ENUM(" + Utils.getStrings(Role.class) + ")",
-                        "ENUM(" + Utils.getStrings(Status.class) + ")",
+                        "ENUM(" + Utils.getStrings(Role.class) + ")"
                 },
                 ""
         );
@@ -47,7 +45,6 @@ public class UserDao extends BaseDao<User> {
         user.setCity(rs.getString("city"));
         user.setState(State.valueOf(rs.getString("state")));
         user.setRole(Role.valueOf(rs.getString("role")));
-        user.setStatus(Status.valueOf(rs.getString("status")));
         return user;
     }
 
@@ -59,6 +56,5 @@ public class UserDao extends BaseDao<User> {
         pstmt.setString(4, obj.getCity());
         pstmt.setString(5, obj.getState().toString());
         pstmt.setString(6, obj.getRole().toString());
-        pstmt.setString(7, obj.getStatus().toString());
     }
 }

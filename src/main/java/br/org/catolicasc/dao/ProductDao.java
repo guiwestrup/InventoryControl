@@ -1,6 +1,5 @@
 package br.org.catolicasc.dao;
 
-import br.org.catolicasc.model.Category;
 import br.org.catolicasc.model.Product;
 import br.org.catolicasc.model.UnitType;
 import br.org.catolicasc.model.Utils;

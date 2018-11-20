@@ -15,20 +15,15 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
                         "quantity",
                         "costValue",
                         "total",
-                        "id_invoice_entries",
-                        "id_product",
-                        "status"
+                        "id_product"
                 },
                 new String[]{
                         "INT",
                         "DECIMAL(10,2)",
                         "DECIMAL(10,2)",
-                        "INT",
-                        "INT",
-                        "ENUM(" + Utils.getStrings(Status.class) + ")"
+                        "INT"
                 },
-                "FOREIGN KEY (id_invoice_entries) REFERENCES invoice_entries(id)," +
-                        "FOREIGN KEY (id_product) REFERENCES product(id)"
+                "FOREIGN KEY (id_product) REFERENCES product(id)"
         );
     }
 
@@ -43,9 +38,7 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
         invoiceProduct.setQuantity(rs.getInt("quantity"));
         invoiceProduct.setCostValue(rs.getFloat("costValue"));
         invoiceProduct.setTotal(rs.getFloat("total"));
-        invoiceProduct.setInvoiceEntries(InvoiceEntriesDao.getNewInstance().getById(rs.getInt("id_invoice_entries")));
         invoiceProduct.setProduct(ProductDao.getNewInstance().getById(rs.getInt("id_product")));
-        invoiceProduct.setStatus(Status.valueOf(rs.getString("status")));
         return invoiceProduct;
     }
 
@@ -54,8 +47,6 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
         pstmt.setInt(1, obj.getQuantity());
         pstmt.setFloat(2, obj.getCostValue());
         pstmt.setFloat(3, obj.getTotal());
-        pstmt.setInt(4, obj.getInvoiceEntries().getId());
-        pstmt.setInt(5, obj.getProduct().getId());
-        pstmt.setString(6, obj.getStatus().toString());
+        pstmt.setInt(4, obj.getProduct().getId());
     }
 }

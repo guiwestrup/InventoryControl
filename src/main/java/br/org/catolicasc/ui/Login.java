@@ -72,8 +72,8 @@ public class Login {
         else{
             List<User> listUser =  UserDao.getNewInstance().getAllWithWhere("name='" + loginText.getText() + "'");
             if(!listUser.isEmpty() && listUser.get(0).getPassword().equals(senha)){
+                loginFrame.dispose();
                 new Main(listUser.get(0).getName());
-                this.close();
             }else{
                 JOptionPane.showMessageDialog(null,"não encontrado");
             }

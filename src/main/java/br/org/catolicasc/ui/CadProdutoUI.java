@@ -23,7 +23,13 @@ public class CadProdutoUI {
     private JButton fecharButton;
     private JFrame cadProdutoFrame;
 
+    private Product prod;
+    private boolean isEdit;
+    private PesquisaProdutosUi PPui;
+
     public CadProdutoUI() {
+        isEdit = false;
+        prod = new Product();
         //populando lista de categorias
         List<Category> listCategory = getCategories();
         listCategory.forEach((temp) ->{
@@ -34,7 +40,7 @@ public class CadProdutoUI {
             unityCombobox.addItem(uni);
         }
 
-        JFrame cadProdutoFrame = new JFrame("Cadastro de Produto");
+        cadProdutoFrame = new JFrame("Cadastro de Produto");
         cadProdutoFrame.setContentPane(cadastroProdutoMain);
         cadProdutoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         cadProdutoFrame.pack();
@@ -50,16 +56,25 @@ public class CadProdutoUI {
                     System.out.println(listCategory.get(categoryCombobox.getSelectedIndex()));
                     UnitType unity = (UnitType) unityCombobox.getSelectedItem();
                     System.out.println(unity);
-                    Product product = new Product(nameText.getText(),ceanText.getText(),marcaText.getText(),listCategory.get(categoryCombobox.getSelectedIndex()), unity);
-                    int retorno = ProductDao.getNewInstance().modify(product);
+                    prod.setName(nameText.getText());
+                    prod.setCean(ceanText.getText());
+                    prod.setMarca(marcaText.getText());
+                    prod.setCategoria(listCategory.get(categoryCombobox.getSelectedIndex()));
+                    prod.setUnit(unity);
+                    int retorno = ProductDao.getNewInstance().modify(prod);
                     if(retorno>0){
-                        int confirm = JOptionPane.showConfirmDialog(cadProdutoFrame.getContentPane(),"Deseja cadastrar outro produto?","Confirmação",JOptionPane.YES_NO_OPTION);
-                        System.out.println(confirm);
-                        if(confirm == JOptionPane.YES_NO_OPTION){
-                            cleanInputs();
-                        }
-                        else{
+                        if(!isEdit){
+                            int confirm = JOptionPane.showConfirmDialog(cadProdutoFrame.getContentPane(),"Deseja cadastrar outro produto?","Confirmação",JOptionPane.YES_NO_OPTION);
+                            System.out.println(confirm);
+                            if(confirm == JOptionPane.YES_NO_OPTION){
+                                cleanInputs();
+                            }
+                            else{
+                                cadProdutoFrame.dispose();
+                            }
+                        }else{
                             cadProdutoFrame.dispose();
+                            PPui.findProd();
                         }
                     }
                     else{
@@ -88,6 +103,34 @@ public class CadProdutoUI {
         ceanText.setText("");
         marcaText.setText("");
         nameText.requestFocus(true);
+        prod = new Product();
+    }
+
+    public void setProductToEdit(PesquisaProdutosUi ui, Product p){
+        PPui = ui;
+        isEdit = true;
+        cleanInputs();
+        if(p != null){
+            prod = p;
+            nameText.setText(prod.getName());
+            ceanText.setText(prod.getCean());
+            marcaText.setText(prod.getMarca());
+            for (int i = 0; i < categoryCombobox.getItemCount(); i++) {
+                if(categoryCombobox.getItemAt(i).equals(prod.getCategoria())){
+                    categoryCombobox.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < unityCombobox.getItemCount(); i++) {
+                if(unityCombobox.getItemAt(i).equals(prod.getUnit())){
+                    unityCombobox.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Produto não encontrado");
+        }
     }
 
     private List<Category> getCategories(){
@@ -95,6 +138,11 @@ public class CadProdutoUI {
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+
+
+    public static void main(String[] args) {
+        new CadProdutoUI();
     }
 
 }
