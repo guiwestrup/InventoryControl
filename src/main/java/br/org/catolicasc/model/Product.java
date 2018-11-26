@@ -7,16 +7,18 @@ public class Product implements BaseDaoClass{
     private String cean;
     private String marca;
     private Category categoria;
+    private Float costValue;
     private UnitType unit;
 
     public Product() {
     }
 
-    public Product(String name, String cean, String marca, Category categoria, UnitType unit) {
+    public Product(String name, String cean, String marca, Category categoria,Float costValue,UnitType unit) {
         this.name = name;
         this.cean = cean;
         this.marca = marca;
         this.categoria = categoria;
+        this.costValue = costValue;
         this.unit = unit;
     }
 
@@ -60,6 +62,14 @@ public class Product implements BaseDaoClass{
 
     public void setCategoria(Category categoria) {
         this.categoria = categoria;
+    }
+
+    public Float getCostValue() {
+        return costValue;
+    }
+
+    public void setCostValue(Float costValue) {
+        this.costValue = costValue;
     }
 
     public UnitType getUnit() {

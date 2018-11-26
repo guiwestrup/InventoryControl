@@ -55,7 +55,7 @@ public class CategoriesUI {
                 if(id != 0){
                     int r = CategoryDao.getNewInstance().deleteById(id);
                     if(r == 0){
-                        JOptionPane.showMessageDialog(null, "erro ao deletar");
+                        JOptionPane.showMessageDialog(categoriesFrame, "erro ao deletar");
                     }else{
                         findCategories();
                     }

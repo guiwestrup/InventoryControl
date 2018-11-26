@@ -44,6 +44,7 @@ public class VendorDao extends BaseDao<Vendor>{
     @Override
     public Vendor getObjFromRs(ResultSet rs) throws SQLException {
         Vendor vendor = new Vendor();
+        vendor.setId(rs.getInt("id"));
         vendor.setCompany(rs.getString("company"));
         vendor.setTrade(rs.getString("trade"));
         vendor.setCNPJ(rs.getString("cnpj"));

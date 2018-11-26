@@ -37,7 +37,7 @@ public class PesquisaProdutosUi {
         PesquisaProdutosUi that = this;
 
 
-        String[] colunas = { "Id", "Nome", "Marca", "Categoria", "Unidade", "Cean"};
+        String[] colunas = { "Id", "Nome", "Marca", "Categoria", "Unidade", "Cean", "Valor de Custo"};
         // cria uma model
         productsTableModel = new DefaultTableModel(new Object[][]{}, colunas);
         // seta o model na tabela
@@ -96,7 +96,8 @@ public class PesquisaProdutosUi {
                             p.getMarca(),
                             (p.getCategoria() != null ? p.getCategoria().getName() : "null"), // quando contem um OBJ, melhor usar comparador ternario para verificar se &eacute; null, pra n&atilde;o explodir
                             p.getUnit(),
-                            p.getCean()
+                            p.getCean(),
+                            p.getCostValue()
                     }
             );
         }

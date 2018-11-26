@@ -18,14 +18,16 @@ public class ProductDao extends BaseDao<Product> {
                         "cean",
                         "unit",
                         "id_category",
-                        "marca"
+                        "marca",
+                        "cost_value"
                 },
                 new String[]{
                         "VARCHAR(255)",
                         "VARCHAR(255)",
                         "ENUM(" + Utils.getStrings(UnitType.class) + ")",
                         "int",
-                        "VARCHAR(255)"
+                        "VARCHAR(255)",
+                        "FLOAT"
                 },
                 "FOREIGN KEY (id_category) REFERENCES category(id)"
         );
@@ -44,6 +46,7 @@ public class ProductDao extends BaseDao<Product> {
         product.setUnit(UnitType.valueOf(rs.getString("unit")));
         product.setCategoria(CategoryDao.getNewInstance().getById(rs.getInt("id_category")));
         product.setMarca(rs.getString("marca"));
+        product.setCostValue(rs.getFloat("cost_value"));
         return product;
     }
 
@@ -54,6 +57,7 @@ public class ProductDao extends BaseDao<Product> {
         pstmt.setString(3,obj.getUnit().toString());
         pstmt.setInt(4,obj.getCategoria().getId());
         pstmt.setString(5,obj.getMarca());
+        pstmt.setFloat(6,obj.getCostValue());
 
     }
 }

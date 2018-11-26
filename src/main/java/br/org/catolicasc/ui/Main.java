@@ -1,5 +1,8 @@
 package br.org.catolicasc.ui;
 
+import br.org.catolicasc.dao.UserDao;
+import br.org.catolicasc.model.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +17,7 @@ public class Main {
     private JButton categoriaButton;
     private JButton fornecedorButton;
     private JButton entradaNotaButton;
-    private JButton novoUsuárioButton;
+    private JButton novoUsuarioButton;
     private JButton buscaUsuáriosButton;
 
     public Main(String user){
@@ -43,7 +46,17 @@ public class Main {
                 new PesquisaProdutosUi();
             }
         });
+        novoUsuarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UserUi();
+            }
+        });
     }
 
+    public static void main(String[] args) {
+        User s = UserDao.getNewInstance().getById(1);
+        new Main(s.getName());
+    }
 
 }
