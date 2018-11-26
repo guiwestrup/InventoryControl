@@ -1,4 +1,4 @@
 package br.org.catolicasc.ui;
 
-public class UserUi {
+public class NewUserUi {
 }
