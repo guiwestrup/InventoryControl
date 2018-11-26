@@ -1,10 +1,9 @@
 package br.org.catolicasc.ui;
 
+import br.org.catolicasc.dao.InvoiceEntriesDao;
 import br.org.catolicasc.dao.ProductDao;
 import br.org.catolicasc.dao.VendorDao;
-import br.org.catolicasc.model.Product;
-import br.org.catolicasc.model.Vendor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+import br.org.catolicasc.model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -102,10 +101,7 @@ public class NewInvoiceUi {
                 }
                 else{
                     inseriSelecionadosProduto();
-                    System.out.println(quantidadeFormattedTextField.getText());
-                    System.out.println(valorDeCustoFormattedTextField.getText());
                     float value = Integer.parseInt(quantidadeFormattedTextField.getText()) * Float.parseFloat(valorDeCustoFormattedTextField.getText());
-                    System.out.println(value);
                     atualizaTotal(value);
                 }
             }
@@ -127,13 +123,53 @@ public class NewInvoiceUi {
         retirarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(selecionadosTable.getValueAt(selecionadosTable.getSelectedRow(), 2));
-                int quantity = (int)selecionadosTable.getValueAt(selecionadosTable.getSelectedRow(), 2);
-                System.out.println(quantity);
-                float custo = (float)selecionadosTable.getValueAt(selecionadosTable.getSelectedRow(), 3);
-                selecionadosTable.removeRowSelectionInterval(selecionadosTable.getSelectedRow(),selecionadosTable.getSelectedRow());
-                float totalRetirar = quantity*custo;
+                String quantity = (String)selecionadosTable.getValueAt(selecionadosTable.getSelectedRow(), 2);
+                String custo = (String)selecionadosTable.getValueAt(selecionadosTable.getSelectedRow(), 3);
+                selecionadosTableModel.removeRow(selecionadosTable.getSelectedRow());
+                float totalRetirar = Integer.parseInt(quantity)*Float.parseFloat(custo);
                 atualizaTotal((totalRetirar*(-1)));
+            }
+        });
+        finalizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //setando VENDOR
+                Vendor vendor = VendorDao.getNewInstance().getById(Integer.parseInt(fornecedorIdText.getText()));
+
+                //setando InvoiceEntries
+                InvoiceEntries invoiceEntries = new InvoiceEntries();
+                invoiceEntries.setVendor(vendor);
+                invoiceEntries.setTotalValue(Float.parseFloat(totalText.getText()));
+                InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+
+
+
+                for (int i=0; i < selecionadosTable.getRowCount(); i++){
+                    //BUSCANDO PRODUTO
+                    String idProduto = (String)selecionadosTable.getValueAt(i,0);
+                    Product prod = ProductDao.getNewInstance().getById(Integer.parseInt(idProduto));
+
+                    //setando na table INVENTORY
+                    String quantity = (String)selecionadosTable.getValueAt(i, 2);
+                    Inventory inventory = new Inventory();
+                    inventory.setProduct(prod);
+                    inventory.setQuantity(Integer.parseInt(quantity));
+                    inventory.setInsertWithdraw(InsertWithdraw.INSERT);
+
+                    //setando Invoice Products
+                    String costValue = (String)selecionadosTable.getValueAt(i,3);
+                    InvoiceProducts invoiceProducts = new InvoiceProducts();
+                    invoiceProducts.setProduct(prod);
+                    invoiceProducts.setQuantity(Integer.parseInt(quantity));
+                    float totalProd = Integer.parseInt(quantity)*Float.parseFloat(costValue);
+                    invoiceProducts.setTotal(totalProd);
+                    invoiceProducts.setCostValue(Float.parseFloat(costValue));
+
+
+
+                    String custo = (String)selecionadosTable.getValueAt(i, 3);
+                    System.out.println("Quantidade: " + quantity + " Custo: " + custo);
+                }
             }
         });
     }
@@ -187,8 +223,6 @@ public class NewInvoiceUi {
     }
 
     private void atualizaTotal(float value){
-        System.out.println(value);
-        System.out.println("total" + this.total);
         this.total = this.total+value;
 
 

@@ -10,23 +10,23 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
 
     private InvoiceEntriesDao() {
         super(
-                "invoice_entries",
+                "invoice_products",
                 new String[]{
-                        "number_invoice",
-                        "description",
-                        "total_value",
-                        "id_vendor",
-                        "id_user"
+                        "quantity",
+                        "costValue",
+                        "total",
+                        "id_product",
+                        "id_invoiceEntrie"
                 },
                 new String[]{
-                        "VARCHAR(255)",
-                        "VARCHAR(255)",
+                        "INT",
+                        "DECIMAL(10,2)",
                         "DECIMAL(10,2)",
                         "INT",
                         "INT"
                 },
-                "FOREIGN KEY (id_vendor) REFERENCES vendor(id)," +
-                        "FOREIGN KEY (id_user) REFERENCES user(id)"
+                "FOREIGN KEY (id_product) REFERENCES product(id)," +
+                        "FOREIGN KEY (id_invoiceEntrie) REFERENCES invoice_entries(id)"
         );
     }
 

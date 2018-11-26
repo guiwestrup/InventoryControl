@@ -8,6 +8,7 @@ public class InvoiceProducts implements BaseDaoClass{
     private int quantity;
     private float costValue;
     private float total;
+    private int idInvoiceEntrie;
 
     public InvoiceProducts() {
 
@@ -53,5 +54,13 @@ public class InvoiceProducts implements BaseDaoClass{
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public int getIdInvoiceEntrie() {
+        return idInvoiceEntrie;
+    }
+
+    public void setIdInvoiceEntrie(int idInvoiceEntrie) {
+        this.idInvoiceEntrie = idInvoiceEntrie;
     }
 }
