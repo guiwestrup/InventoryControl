@@ -26,8 +26,7 @@ public class testing {
         InvoiceEntries invoiceEntries = new InvoiceEntries();
         invoiceEntries.setVendor(vendor);
         invoiceEntries.setTotalValue((float)10.00);
-        InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
-
-        System.out.println(invoiceEntries.getId());
+        int a = InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+        System.out.println(a);
     }
 }

@@ -39,7 +39,6 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
         invoiceProduct.setCostValue(rs.getFloat("costValue"));
         invoiceProduct.setTotal(rs.getFloat("total"));
         invoiceProduct.setProduct(ProductDao.getNewInstance().getById(rs.getInt("id_product")));
-        invoiceProduct.setIdInvoiceEntrie(rs.getInt("id_invoiceEntrie"));
         return invoiceProduct;
     }
 
@@ -49,6 +48,5 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
         pstmt.setFloat(2, obj.getCostValue());
         pstmt.setFloat(3, obj.getTotal());
         pstmt.setInt(4, obj.getProduct().getId());
-        pstmt.setInt(5, obj.getIdInvoiceEntrie());
     }
 }

@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
     private static String DATABASE = "inventory-control";
-    private static String JDBC_DRIVER = "org.mariadb.jdbc.Driver";;
-    private static String URL = "jdbc:mariadb://localhost:3306/" + DATABASE + "?useSSL=false";
+    private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";;
+    private static String URL = "jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false";
     private static String USER = "root";
-    private static String PASSWORD = "root";
+    private static String PASSWORD = "";
 
     private static Connection conn = null;
     private static ConnectionManager mngr;
