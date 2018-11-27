@@ -7,6 +7,7 @@ import br.org.catolicasc.model.Utils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class ProductDao extends BaseDao<Product> {
 
@@ -43,10 +44,14 @@ public class ProductDao extends BaseDao<Product> {
         product.setId(rs.getInt("id"));
         product.setName(rs.getString("name"));
         product.setCean(rs.getString("cean"));
-        product.setUnit(UnitType.valueOf(rs.getString("unit")));
         product.setCategoria(CategoryDao.getNewInstance().getById(rs.getInt("id_category")));
         product.setMarca(rs.getString("marca"));
         product.setCostValue(rs.getFloat("cost_value"));
+        try {
+            product.setUnit(UnitType.valueOf(rs.getString("unit")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return product;
     }
 
@@ -54,8 +59,10 @@ public class ProductDao extends BaseDao<Product> {
     public void setAttributesFromObj(PreparedStatement pstmt, Product obj) throws SQLException {
         pstmt.setString(1,obj.getName());
         pstmt.setString(2,obj.getCean());
-        pstmt.setString(3,obj.getUnit().toString());
-        pstmt.setInt(4,obj.getCategoria().getId());
+        if (obj.getUnit() != null) pstmt.setString(3,obj.getUnit().toString());
+        else pstmt.setNull(5,Types.VARCHAR);
+        if (obj.getCategoria() != null) pstmt.setInt(4,obj.getCategoria().getId());
+        else pstmt.setNull(5,Types.INTEGER);
         pstmt.setString(5,obj.getMarca());
         pstmt.setFloat(6,obj.getCostValue());
 

@@ -5,6 +5,7 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class VendorDao extends BaseDao<Vendor>{
 
@@ -53,7 +54,11 @@ public class VendorDao extends BaseDao<Vendor>{
         vendor.setEmail(rs.getString("email"));
         vendor.setZipcode(rs.getString("zipcode"));
         vendor.setCity(rs.getString("city"));
-        vendor.setState(State.valueOf(rs.getString("state")));
+        try{
+            vendor.setState(State.valueOf(rs.getString("state")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return vendor;
     }
 
@@ -67,6 +72,7 @@ public class VendorDao extends BaseDao<Vendor>{
         pstmt.setString(6,obj.getEmail());
         pstmt.setString(7,obj.getZipcode());
         pstmt.setString(8,obj.getCity());
-        pstmt.setString(9,obj.getState().toString());
+        if(obj.getState() != null) pstmt.setString(9,obj.getState().toString());
+        else pstmt.setNull(9,Types.VARCHAR);
     }
 }

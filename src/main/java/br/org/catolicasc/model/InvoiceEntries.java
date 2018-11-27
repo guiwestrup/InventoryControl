@@ -1,5 +1,6 @@
 package br.org.catolicasc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvoiceEntries implements BaseDaoClass{
@@ -16,6 +17,7 @@ public class InvoiceEntries implements BaseDaoClass{
     private User user;
 
     public InvoiceEntries(){
+        listProducts = new ArrayList<>();
     }
 
     @Override

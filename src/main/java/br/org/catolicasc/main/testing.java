@@ -2,6 +2,7 @@ package br.org.catolicasc.main;
 
 import br.org.catolicasc.dao.*;
 import br.org.catolicasc.model.InvoiceEntries;
+import br.org.catolicasc.model.User;
 import br.org.catolicasc.model.Vendor;
 
 public class testing {
@@ -26,7 +27,8 @@ public class testing {
         InvoiceEntries invoiceEntries = new InvoiceEntries();
         invoiceEntries.setVendor(vendor);
         invoiceEntries.setTotalValue((float)10.00);
-        int a = InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+        InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+        int a = invoiceEntries.getId();
         System.out.println(a);
     }
 }

@@ -5,6 +5,7 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class UserDao extends BaseDao<User> {
 
@@ -43,8 +44,12 @@ public class UserDao extends BaseDao<User> {
         user.setPassword(rs.getString("password"));
         user.setAddress(rs.getString("address"));
         user.setCity(rs.getString("city"));
-        user.setState(State.valueOf(rs.getString("state")));
-        user.setRole(Role.valueOf(rs.getString("role")));
+        try {
+            user.setState(State.valueOf(rs.getString("state")));
+            user.setRole(Role.valueOf(rs.getString("role")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return user;
     }
 
@@ -54,7 +59,9 @@ public class UserDao extends BaseDao<User> {
         pstmt.setString(2, obj.getPassword());
         pstmt.setString(3, obj.getAddress());
         pstmt.setString(4, obj.getCity());
-        pstmt.setString(5, obj.getState().toString());
-        pstmt.setString(6, obj.getRole().toString());
+        if(obj.getState() != null) pstmt.setString(5, obj.getState().toString());
+        else pstmt.setNull(5,Types.VARCHAR);
+        if(obj.getRole() != null) pstmt.setString(6, obj.getRole().toString());
+        else pstmt.setNull(6,Types.VARCHAR);
     }
 }
