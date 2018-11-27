@@ -5,28 +5,29 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
 
     private InvoiceEntriesDao() {
         super(
-                "invoice_products",
+                "invoice_entries",
                 new String[]{
-                        "quantity",
-                        "costValue",
-                        "total",
-                        "id_product",
-                        "id_invoiceEntrie"
+                        "number_invoice",
+                        "description",
+                        "total_value",
+                        "id_vendor",
+                        "id_user"
                 },
                 new String[]{
-                        "INT",
-                        "DECIMAL(10,2)",
+                        "VARCHAR(255)",
+                        "VARCHAR(255)",
                         "DECIMAL(10,2)",
                         "INT",
                         "INT"
                 },
-                "FOREIGN KEY (id_product) REFERENCES product(id)," +
-                        "FOREIGN KEY (id_invoiceEntrie) REFERENCES invoice_entries(id)"
+                "FOREIGN KEY (id_vendor) REFERENCES vendor(id)," +
+                        "FOREIGN KEY (id_user) REFERENCES user(id)"
         );
     }
 
@@ -44,7 +45,7 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
         invoiceEntries.setVendor(VendorDao.getNewInstance().getById(rs.getInt("id_vendor")));
         invoiceEntries.setUser(UserDao.getNewInstance().getById(rs.getInt("id_user")));
 
-        invoiceEntries.setListProducts(InvoiceProductsDao.getNewInstance().getAllWithWhere("id_invoice_entries=" + invoiceEntries.getId()));
+        invoiceEntries.setListProducts(InvoiceProductsDao.getNewInstance().getAllWithWhere("id_invoiceEntrie=" + invoiceEntries.getId()));
 
         return invoiceEntries;
     }
@@ -55,10 +56,8 @@ public class InvoiceEntriesDao extends BaseDao<InvoiceEntries> {
         pstmt.setString(2,obj.getDescription());
         pstmt.setFloat(3,obj.getTotalValue());
         if(obj.getVendor() != null) pstmt.setInt(4,obj.getVendor().getId());
+        else pstmt.setNull(4,Types.INTEGER);
         if(obj.getUser() != null) pstmt.setInt(5,obj.getUser().getId());
-
-        for (InvoiceProducts o: obj.getListProducts()) {
-            InvoiceProductsDao.getNewInstance().modify(o);
-        }
+        else pstmt.setNull(5,Types.INTEGER);
     }
 }

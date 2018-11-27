@@ -5,6 +5,7 @@ import br.org.catolicasc.model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
 
@@ -15,15 +16,18 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
                         "quantity",
                         "costValue",
                         "total",
-                        "id_product"
+                        "id_product",
+                        "id_invoiceEntrie"
                 },
                 new String[]{
                         "INT",
                         "DECIMAL(10,2)",
                         "DECIMAL(10,2)",
+                        "INT",
                         "INT"
                 },
-                "FOREIGN KEY (id_product) REFERENCES product(id)"
+                "FOREIGN KEY (id_product) REFERENCES product(id)," +
+                        "FOREIGN KEY (id_invoiceEntrie) REFERENCES invoice_entries(id)"
         );
     }
 
@@ -48,7 +52,8 @@ public class InvoiceProductsDao extends BaseDao<InvoiceProducts>{
         pstmt.setInt(1, obj.getQuantity());
         pstmt.setFloat(2, obj.getCostValue());
         pstmt.setFloat(3, obj.getTotal());
-        pstmt.setInt(4, obj.getProduct().getId());
+        if(obj.getProduct() != null) pstmt.setInt(4, obj.getProduct().getId());
+        else pstmt.setNull(4,Types.INTEGER);
         pstmt.setInt(5, obj.getIdInvoiceEntrie());
     }
 }
