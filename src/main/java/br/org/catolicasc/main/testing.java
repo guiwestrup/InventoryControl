@@ -14,21 +14,21 @@ public class testing {
         System.out.println("\nExecutando...");
 
         // tem que testar
-//        CategoryDao.getNewInstance();
-//        ProductDao.getNewInstance();
-//        UserDao.getNewInstance();
-//        VendorDao.getNewInstance();
-//        InvoiceEntriesDao.getNewInstance();
-//        InvoiceProductsDao.getNewInstance();
+        CategoryDao.getNewInstance();
+        ProductDao.getNewInstance();
+        UserDao.getNewInstance();
+        VendorDao.getNewInstance();
+        InvoiceEntriesDao.getNewInstance();
+        InvoiceProductsDao.getNewInstance();
 
         //User user = new User("guizao","rua dali","xaraguá","123", State.SC, Role.ADMIN, Status.ACTIVE);
 
-        Vendor vendor = VendorDao.getNewInstance().getById(1);
-        InvoiceEntries invoiceEntries = new InvoiceEntries();
-        invoiceEntries.setVendor(vendor);
-        invoiceEntries.setTotalValue((float)10.00);
-        InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
-        int a = invoiceEntries.getId();
-        System.out.println(a);
+//        Vendor vendor = VendorDao.getNewInstance().getById(1);
+//        InvoiceEntries invoiceEntries = new InvoiceEntries();
+//        invoiceEntries.setVendor(vendor);
+//        invoiceEntries.setTotalValue((float)10.00);
+//        InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+//        int a = invoiceEntries.getId();
+//        System.out.println(a);
     }
 }

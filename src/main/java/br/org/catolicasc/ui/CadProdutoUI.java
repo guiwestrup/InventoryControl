@@ -21,6 +21,7 @@ public class CadProdutoUI {
     private JTextField marcaText;
     private JComboBox<UnitType> unityCombobox;
     private JButton fecharButton;
+    private JTextField custoText;
     private JFrame cadProdutoFrame;
 
     private Product prod;
@@ -61,6 +62,7 @@ public class CadProdutoUI {
                     prod.setMarca(marcaText.getText());
                     prod.setCategoria(listCategory.get(categoryCombobox.getSelectedIndex()));
                     prod.setUnit(unity);
+                    prod.setCostValue(Float.parseFloat(custoText.getText()));
                     int retorno = ProductDao.getNewInstance().modify(prod);
                     if(retorno>0){
                         if(!isEdit){
@@ -103,6 +105,7 @@ public class CadProdutoUI {
         ceanText.setText("");
         marcaText.setText("");
         nameText.requestFocus(true);
+        custoText.setText("");
         prod = new Product();
     }
 
@@ -115,6 +118,7 @@ public class CadProdutoUI {
             nameText.setText(prod.getName());
             ceanText.setText(prod.getCean());
             marcaText.setText(prod.getMarca());
+            custoText.setText(String.valueOf(prod.getCostValue()));
             for (int i = 0; i < categoryCombobox.getItemCount(); i++) {
                 if(categoryCombobox.getItemAt(i).equals(prod.getCategoria())){
                     categoryCombobox.setSelectedIndex(i);
@@ -134,7 +138,7 @@ public class CadProdutoUI {
     }
 
     private List<Category> getCategories(){
-        return CategoryDao.getNewInstance().getAllWithWhere("status>=0");
+        return CategoryDao.getNewInstance().getAll();
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here

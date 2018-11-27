@@ -26,6 +26,10 @@ public class InventoryDao extends BaseDao<Inventory>{
         );
     }
 
+    public static InventoryDao getNewInstance(){
+        return new InventoryDao();
+    }
+
     @Override
     public Inventory getObjFromRs(ResultSet rs) throws SQLException {
         Inventory inventory = new Inventory();

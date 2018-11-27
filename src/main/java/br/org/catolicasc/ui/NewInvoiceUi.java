@@ -1,8 +1,6 @@
 package br.org.catolicasc.ui;
 
-import br.org.catolicasc.dao.InvoiceEntriesDao;
-import br.org.catolicasc.dao.ProductDao;
-import br.org.catolicasc.dao.VendorDao;
+import br.org.catolicasc.dao.*;
 import br.org.catolicasc.model.*;
 
 import javax.swing.*;
@@ -49,7 +47,7 @@ public class NewInvoiceUi {
         //TABLE PRODUTOS
         String[] colunasProduto = { "Id", "Nome", "Marca", "Categoria", "Unidade", "Cean", "Valor de Custo"};
         // cria uma model para a table de produtos
-        productsTableModel = new DefaultTableModel(new Object[][]{}, colunasProduto);
+            productsTableModel = new DefaultTableModel(new Object[][]{}, colunasProduto);
         // seta o model na tabela
         productsTable.setModel(productsTableModel);
         findProds();
@@ -133,43 +131,52 @@ public class NewInvoiceUi {
         finalizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //setando VENDOR
-                Vendor vendor = VendorDao.getNewInstance().getById(Integer.parseInt(fornecedorIdText.getText()));
-
-                //setando InvoiceEntries
-                InvoiceEntries invoiceEntries = new InvoiceEntries();
-                invoiceEntries.setVendor(vendor);
-                invoiceEntries.setTotalValue(Float.parseFloat(totalText.getText()));
-                InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
-
-
-
-                for (int i=0; i < selecionadosTable.getRowCount(); i++){
-                    //BUSCANDO PRODUTO
-                    String idProduto = (String)selecionadosTable.getValueAt(i,0);
-                    Product prod = ProductDao.getNewInstance().getById(Integer.parseInt(idProduto));
-
-                    //setando na table INVENTORY
-                    String quantity = (String)selecionadosTable.getValueAt(i, 2);
-                    Inventory inventory = new Inventory();
-                    inventory.setProduct(prod);
-                    inventory.setQuantity(Integer.parseInt(quantity));
-                    inventory.setInsertWithdraw(InsertWithdraw.INSERT);
-
-                    //setando Invoice Products
-                    String costValue = (String)selecionadosTable.getValueAt(i,3);
-                    InvoiceProducts invoiceProducts = new InvoiceProducts();
-                    invoiceProducts.setProduct(prod);
-                    invoiceProducts.setQuantity(Integer.parseInt(quantity));
-                    float totalProd = Integer.parseInt(quantity)*Float.parseFloat(costValue);
-                    invoiceProducts.setTotal(totalProd);
-                    invoiceProducts.setCostValue(Float.parseFloat(costValue));
-
-
-
-                    String custo = (String)selecionadosTable.getValueAt(i, 3);
-                    System.out.println("Quantidade: " + quantity + " Custo: " + custo);
+                if(fornecedorIdText.getText().equals("")){
+                    JOptionPane.showMessageDialog(null,"é necessário selecionar um fornecedor");
                 }
+                else{
+                    //setando VENDOR
+                    Vendor vendor = VendorDao.getNewInstance().getById(Integer.parseInt(fornecedorIdText.getText()));
+
+                    //setando InvoiceEntries
+                    InvoiceEntries invoiceEntries = new InvoiceEntries();
+                    invoiceEntries.setVendor(vendor);
+                    invoiceEntries.setTotalValue(Float.parseFloat(totalText.getText()));
+                    InvoiceEntriesDao.getNewInstance().modify(invoiceEntries);
+                    int idInvoiceEntries = invoiceEntries.getId();
+
+
+                    for (int i=0; i < selecionadosTable.getRowCount(); i++){
+                        //BUSCANDO PRODUTO
+                        String idProduto = (String)selecionadosTable.getValueAt(i,0);
+                        Product prod = ProductDao.getNewInstance().getById(Integer.parseInt(idProduto));
+
+                        //setando na table INVENTORY
+                        String quantity = (String)selecionadosTable.getValueAt(i, 2);
+                        Inventory inventory = new Inventory();
+                        inventory.setProduct(prod);
+                        inventory.setQuantity(Integer.parseInt(quantity));
+                        inventory.setInsertWithdraw(InsertWithdraw.INSERT);
+                        InventoryDao.getNewInstance().modify(inventory);
+
+                        //setando Invoice Products
+                        String costValue = (String)selecionadosTable.getValueAt(i,3);
+                        InvoiceProducts invoiceProducts = new InvoiceProducts();
+                        invoiceProducts.setProduct(prod);
+                        invoiceProducts.setQuantity(Integer.parseInt(quantity));
+                        float totalProd = Integer.parseInt(quantity)*Float.parseFloat(costValue);
+                        invoiceProducts.setTotal(totalProd);
+                        invoiceProducts.setCostValue(Float.parseFloat(costValue));
+                        invoiceProducts.setIdInvoiceEntrie(idInvoiceEntries);
+                        InvoiceProductsDao.getNewInstance().modify(invoiceProducts);
+
+
+                        String custo = (String)selecionadosTable.getValueAt(i, 3);
+                        System.out.println("Quantidade: " + quantity + " Custo: " + custo);
+                        invoiceFrame.dispose();
+                    }
+                }
+
             }
         });
     }

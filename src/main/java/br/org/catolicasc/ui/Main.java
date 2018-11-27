@@ -19,6 +19,7 @@ public class Main {
     private JButton entradaNotaButton;
     private JButton novoUsuarioButton;
     private JButton buscaUsuáriosButton;
+    private JButton listaDeNotasButton;
 
     public Main(String user){
         JFrame mainFrame = new JFrame("Sistema de inventário");
@@ -50,6 +51,18 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new UserUi();
+            }
+        });
+        entradaNotaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NewInvoiceUi();
+            }
+        });
+        listaDeNotasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
