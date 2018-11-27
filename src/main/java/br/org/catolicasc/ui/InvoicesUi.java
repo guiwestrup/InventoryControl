@@ -48,7 +48,7 @@ public class InvoicesUi {
         verButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new ViewInvoiceUi(Integer.parseInt(invoicesTableModel.getValueAt(invoicesTable.getSelectedRow(),0).toString()));
             }
         });
     }
@@ -65,9 +65,5 @@ public class InvoicesUi {
                     }
             );
         }
-    }
-
-    public static void main(String[] args) {
-        new InvoicesUi();
     }
 }

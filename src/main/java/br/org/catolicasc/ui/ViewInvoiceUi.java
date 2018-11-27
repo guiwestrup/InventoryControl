@@ -7,6 +7,8 @@ import br.org.catolicasc.model.Product;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ViewInvoiceUi {
@@ -52,11 +54,12 @@ public class ViewInvoiceUi {
         }
 
 
-
-    }
-
-    public static void main(String[] args) {
-        new ViewInvoiceUi(2);
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewInvoiceFrame.dispose();
+            }
+        });
     }
 
 }

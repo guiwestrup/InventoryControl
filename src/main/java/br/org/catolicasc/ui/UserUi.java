@@ -95,9 +95,4 @@ public class UserUi {
             );
         }
     }
-
-    public static void main(String[] args) {
-        new UserUi();
-    }
-
 }

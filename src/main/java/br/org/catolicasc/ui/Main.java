@@ -17,8 +17,7 @@ public class Main {
     private JButton categoriaButton;
     private JButton fornecedorButton;
     private JButton entradaNotaButton;
-    private JButton novoUsuarioButton;
-    private JButton buscaUsuáriosButton;
+    private JButton buscaUsuariosButton;
     private JButton listaDeNotasButton;
 
     public Main(String user){
@@ -47,12 +46,6 @@ public class Main {
                 new PesquisaProdutosUi();
             }
         });
-        novoUsuarioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new UserUi();
-            }
-        });
         entradaNotaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,7 +55,19 @@ public class Main {
         listaDeNotasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new InvoicesUi();
+            }
+        });
+        buscaUsuariosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UserUi();
+            }
+        });
+        fornecedorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VendorUi();
             }
         });
     }

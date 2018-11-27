@@ -12,8 +12,8 @@ public class NewInvoiceUi {
     private JPanel mainPanel;
     private JTextField buscaTextField;
     private JTextField nomeTextField;
-    private JFormattedTextField quantidadeFormattedTextField;
-    private JFormattedTextField valorDeCustoFormattedTextField;
+    private JTextField quantidadeFormattedTextField;
+    private JTextField valorDeCustoFormattedTextField;
     private JButton confirmarButton;
     private JButton retirarButton;
     private JTable productsTable;
@@ -24,7 +24,7 @@ public class NewInvoiceUi {
     private JButton finalizarButton;
     private JTextField fornecedorIdText;
     private JTextField fornecedorNomeText;
-    private JFormattedTextField totalText;
+    private JTextField totalText;
     private DefaultTableModel productsTableModel;
     private DefaultTableModel fornecedorTableModel;
     private DefaultTableModel selecionadosTableModel;
@@ -41,7 +41,7 @@ public class NewInvoiceUi {
 
         //iniciando total
         this.total = 0;
-        totalText.setValue(this.total);
+        totalText.setText(this.total +"");
 
 
         //TABLE PRODUTOS
@@ -77,7 +77,7 @@ public class NewInvoiceUi {
                 Float custo = (Float)productsTable.getValueAt(productsTable.getSelectedRow(),6);
                 idProdutoLabel.setText(String.valueOf(idProduto));
                 nomeTextField.setText(nomeProduto);
-                valorDeCustoFormattedTextField.setValue(custo);
+                valorDeCustoFormattedTextField.setText(custo.toString());
             }
         });
 
@@ -233,10 +233,7 @@ public class NewInvoiceUi {
         this.total = this.total+value;
 
 
-        totalText.setValue(this.total);
+        totalText.setText(this.total + "");
     }
 
-    public static void main(String[] args) {
-        new NewInvoiceUi();
-    }
 }

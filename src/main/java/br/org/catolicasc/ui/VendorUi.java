@@ -41,9 +41,21 @@ public class VendorUi {
             public void actionPerformed(ActionEvent e) {
                 int id = (int)vendorsTable.getValueAt(vendorsTable.getSelectedRow(), 0);
                 if(id != 0){
-                    RegisterVendorUI v = new RegisterVendorUI(that);
+                    RegisterVendorUI v = new RegisterVendorUI();
                     v.setVendorToEdit(VendorDao.getNewInstance().getById(id));
                 }
+            }
+        });
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vendorFrame.dispose();
+            }
+        });
+        novoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RegisterVendorUI();
             }
         });
     }
@@ -67,10 +79,6 @@ public class VendorUi {
                 }
             );
         }
-    }
-
-    public static void main(String[] args) {
-        new VendorUi();
     }
 }
 

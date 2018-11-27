@@ -1,7 +1,10 @@
 package br.org.catolicasc.ui;
 
+import br.org.catolicasc.dao.VendorDao;
 import br.org.catolicasc.model.State;
 import br.org.catolicasc.model.Vendor;
+import com.sun.codemodel.internal.JOp;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +25,9 @@ public class RegisterVendorUI {
     private JTextField enderecoText;
     private boolean isEdit;
     private Vendor ven;
-    public RegisterVendorUI(VendorUi v) {
+
+
+    public RegisterVendorUI() {
         ven = new Vendor();
         JFrame RegisterVendorFrame = new JFrame("");
         RegisterVendorFrame.setContentPane(mainPanel);
@@ -50,7 +55,25 @@ public class RegisterVendorUI {
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(razaoText.equals("") || fantasiaText.equals("") || cnpjText.equals("")){
+                    JOptionPane.showMessageDialog(null, "Razão, fantasia e cnpj são obrigatórios!");
+                }
+                else{
+                    Vendor ven2 = new Vendor(razaoText.getText(),fantasiaText.getText(),cnpjText.getText(),enderecoText.getText(),null,emailText.getText(),cepText.getText(),cidadeText.getText(),State.valueOf(stateComboBox.getSelectedItem().toString()));
+                    if(isEdit){
+                        ven2.setId(ven.getId());
+                    }
+                    ven = ven2;
+                    int a = VendorDao.getNewInstance().modify(ven);
+                    if(a>0){
+                        if(!isEdit){
+                            JOptionPane.showMessageDialog(null,"Fornecedor cadastrado com sucesso.");
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"problema na insercão do fornecedor.");
+                    }
+                }
             }
         });
     }
@@ -60,7 +83,19 @@ public class RegisterVendorUI {
         ven = v;
         clearInputs();
         if(v!=null){
-
+            razaoText.setText(v.getCompany());
+            fantasiaText.setText(v.getTrade());
+            cnpjText.setText(v.getCNPJ());
+            enderecoText.setText(v.getAddress());
+            cidadeText.setText(v.getCity());
+            cepText.setText(v.getZipcode());
+            emailText.setText(v.getEmail());
+            for (int i = 0; i < stateComboBox.getItemCount(); i++) {
+                if(stateComboBox.getItemAt(i).equals(v.getState())){
+                    stateComboBox.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
 
     }

@@ -88,8 +88,4 @@ public class CategoriesUI {
             );
         }
     }
-
-    public static void main(String[] args) {
-        new CategoriesUI();
-    }
 }

@@ -20,6 +20,18 @@ public class Vendor implements BaseDaoClass{
 
     }
 
+    public Vendor(String company, String trade, String CNPJ, String address, String phone, String email, String zipcode, String city, State state) {
+        this.company = company;
+        this.trade = trade;
+        this.CNPJ = CNPJ;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.state = state;
+    }
+
     @Override
     public int getId() {
         return id;
